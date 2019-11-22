@@ -49,6 +49,8 @@ namespace TaquinLib
     // emplacement des pièces
     internal int[] Pieces;
 
+    internal List<int> Solution;
+
     internal int PosVide { get => Pieces[CaseVide]; }
     internal bool[] PiecesRangees;
     // directions                                             Nord,            Est,            Sud,            Ouest
@@ -70,10 +72,10 @@ namespace TaquinLib
         RendResoluble();
       }
       // préparation de données
-      InitiCalculZones();
+      InitCalculZones();
     }
 
-    private void InitiCalculZones()
+    private void InitCalculZones()
     {
       calculZone = new Calcul();
       Size sz;
@@ -127,38 +129,62 @@ namespace TaquinLib
 
     private bool IsResoluble()
     {
-      int S = 0;
-      for (int indiceCase = 0; indiceCase < NbCases; indiceCase++)
+      int[] plateau = DupliquePlateau(PlateauInitial);
+      int posV = Array.IndexOf(plateau, CaseVide);
+      Point coordVfinale = Coordonnees(CaseVide);
+      while (CaseVide != posV)
       {
-        int indicePiece = PlateauInitial[indiceCase];
-        S += Distance(Coordonnees(indicePiece), Coordonnees(indiceCase));
+        Point coordV = Coordonnees(posV);
+        int posVnext;
+        if (coordV.X != coordVfinale.X)
+        {
+          posVnext = posV + 1;
+        }
+        else
+        {
+          posVnext = posV + Largeur;
+        }
+        int v = plateau[posV];
+        plateau[posV] = plateau[posVnext];
+        plateau[posVnext] = v;
+        posV = posVnext;
       }
-      return S % 2 == 0;
+      int nbT = 0;
+      for (int i = 0; i < CaseVide-1; i++)
+      {
+        if (plateau[i] != i)
+        {
+          int posI = Array.IndexOf(plateau, i);
+          plateau[posI] = plateau[i];
+          plateau[i] = i;
+          nbT++;
+        }
+      }
+      return nbT % 2 == 0;
     }
 
     private void RendResoluble()
     {
-      // TODO : comment rendre résoluble un plateau non résoluble ?
-      //int i = 0;
-      //if (PlateauInitial[i] == CaseVide)
-      //{
-      //  ++i;
-      //}
-      //int j = i + 1;
-      //if (PlateauInitial[j] == CaseVide)
-      //{
-      //  ++j;
-      //}
-      //int t = PlateauInitial[j];
-      //PlateauInitial[j] = PlateauInitial[i];
-      //PlateauInitial[i] = t;
+      int i = 0;
+      if (PlateauInitial[i] == CaseVide)
+      {
+        ++i;
+      }
+      int j = i + 1;
+      if (PlateauInitial[j] == CaseVide)
+      {
+        ++j;
+      }
+      int t = PlateauInitial[j];
+      PlateauInitial[j] = PlateauInitial[i];
+      PlateauInitial[i] = t;
     }
 
     public void Resoudre()
     {
       Plateau = DupliquePlateau(PlateauInitial);
       InitPieces();
-
+      Solution = new List<int>();
       for (int y = 0; y < Hauteur - 2; y++)
       {
         for (int x = 0; x < Largeur - 2; x++)
@@ -208,6 +234,7 @@ namespace TaquinLib
       {
         throw new ArgumentException();
       }
+      Solution.Add(posVideDest);
       // la pièce qui va être transposée avec la case vide
       int indiceA = Plateau[posVideDest];
       Plateau[posVideActuelle] = indiceA;

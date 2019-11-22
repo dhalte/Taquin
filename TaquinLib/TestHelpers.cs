@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -107,6 +108,19 @@ namespace TaquinLib
     public static bool IsResoluble(Jeu jeu)
     {
       return jeu.IsResoluble();
+    }
+
+    public static string DumpSolution(Jeu jeu)
+    {
+      StringBuilder sb = new StringBuilder();
+      sb.Append("col;row").AppendLine();
+      foreach (int pos in jeu.Solution)
+      {
+        Point p = jeu.Coordonnees(pos);
+        sb.Append($"{p.X};{p.Y}").AppendLine();
+
+      }
+      return sb.ToString();
     }
   }
 }
