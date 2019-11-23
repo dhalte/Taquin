@@ -38,17 +38,21 @@
       this.label1 = new System.Windows.Forms.Label();
       this.TabJeu = new System.Windows.Forms.TabPage();
       this.TableJeu = new System.Windows.Forms.TableLayoutPanel();
-      this.PlateauJeu = new Taquin.Plateau();
       this.PnlControles = new System.Windows.Forms.Panel();
+      this.BtResoudre = new System.Windows.Forms.Button();
+      this.BtNouveauJeu = new System.Windows.Forms.Button();
       this.PnlChoixImageTexte = new System.Windows.Forms.Panel();
       this.RbTexte = new System.Windows.Forms.RadioButton();
       this.RbImage = new System.Windows.Forms.RadioButton();
+      this.PlateauJeu = new Taquin.Plateau();
+      this.PnlBoutons = new System.Windows.Forms.Panel();
       this.TabMain.SuspendLayout();
       this.TabParam.SuspendLayout();
       this.TabJeu.SuspendLayout();
       this.TableJeu.SuspendLayout();
       this.PnlControles.SuspendLayout();
       this.PnlChoixImageTexte.SuspendLayout();
+      this.PnlBoutons.SuspendLayout();
       this.SuspendLayout();
       // 
       // TabMain
@@ -161,22 +165,35 @@
       this.TableJeu.Size = new System.Drawing.Size(786, 418);
       this.TableJeu.TabIndex = 0;
       // 
-      // PlateauJeu
-      // 
-      this.PlateauJeu.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.PlateauJeu.Location = new System.Drawing.Point(3, 3);
-      this.PlateauJeu.Name = "PlateauJeu";
-      this.PlateauJeu.Size = new System.Drawing.Size(630, 412);
-      this.PlateauJeu.TabIndex = 0;
-      // 
       // PnlControles
       // 
+      this.PnlControles.Controls.Add(this.PnlBoutons);
       this.PnlControles.Controls.Add(this.PnlChoixImageTexte);
       this.PnlControles.Dock = System.Windows.Forms.DockStyle.Fill;
       this.PnlControles.Location = new System.Drawing.Point(639, 3);
       this.PnlControles.Name = "PnlControles";
       this.PnlControles.Size = new System.Drawing.Size(144, 412);
       this.PnlControles.TabIndex = 1;
+      // 
+      // BtResoudre
+      // 
+      this.BtResoudre.Location = new System.Drawing.Point(29, 32);
+      this.BtResoudre.Name = "BtResoudre";
+      this.BtResoudre.Size = new System.Drawing.Size(75, 23);
+      this.BtResoudre.TabIndex = 8;
+      this.BtResoudre.Text = "Résoudre";
+      this.BtResoudre.UseVisualStyleBackColor = true;
+      this.BtResoudre.Click += new System.EventHandler(this.BtResoudre_Click);
+      // 
+      // BtNouveauJeu
+      // 
+      this.BtNouveauJeu.Location = new System.Drawing.Point(29, 3);
+      this.BtNouveauJeu.Name = "BtNouveauJeu";
+      this.BtNouveauJeu.Size = new System.Drawing.Size(75, 23);
+      this.BtNouveauJeu.TabIndex = 7;
+      this.BtNouveauJeu.Text = "Nouveau";
+      this.BtNouveauJeu.UseVisualStyleBackColor = true;
+      this.BtNouveauJeu.Click += new System.EventHandler(this.BtNouveauJeu_Click);
       // 
       // PnlChoixImageTexte
       // 
@@ -186,7 +203,7 @@
       this.PnlChoixImageTexte.Controls.Add(this.RbImage);
       this.PnlChoixImageTexte.Location = new System.Drawing.Point(4, 4);
       this.PnlChoixImageTexte.Name = "PnlChoixImageTexte";
-      this.PnlChoixImageTexte.Size = new System.Drawing.Size(137, 52);
+      this.PnlChoixImageTexte.Size = new System.Drawing.Size(137, 57);
       this.PnlChoixImageTexte.TabIndex = 0;
       // 
       // RbTexte
@@ -212,6 +229,24 @@
       this.RbImage.UseVisualStyleBackColor = true;
       this.RbImage.CheckedChanged += new System.EventHandler(this.RbImage_CheckedChanged);
       // 
+      // PlateauJeu
+      // 
+      this.PlateauJeu.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.PlateauJeu.Location = new System.Drawing.Point(3, 3);
+      this.PlateauJeu.Name = "PlateauJeu";
+      this.PlateauJeu.Size = new System.Drawing.Size(630, 412);
+      this.PlateauJeu.TabIndex = 0;
+      this.PlateauJeu.ResolutionAutomatiqueOver += new System.EventHandler<System.EventArgs>(this.PlateauJeu_ResolutionAutomatiqueOver);
+      // 
+      // PnlBoutons
+      // 
+      this.PnlBoutons.Controls.Add(this.BtResoudre);
+      this.PnlBoutons.Controls.Add(this.BtNouveauJeu);
+      this.PnlBoutons.Location = new System.Drawing.Point(4, 67);
+      this.PnlBoutons.Name = "PnlBoutons";
+      this.PnlBoutons.Size = new System.Drawing.Size(137, 58);
+      this.PnlBoutons.TabIndex = 1;
+      // 
       // FrmMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -228,6 +263,7 @@
       this.PnlControles.ResumeLayout(false);
       this.PnlChoixImageTexte.ResumeLayout(false);
       this.PnlChoixImageTexte.PerformLayout();
+      this.PnlBoutons.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
@@ -249,6 +285,9 @@
     private System.Windows.Forms.Panel PnlChoixImageTexte;
     private System.Windows.Forms.RadioButton RbTexte;
     private System.Windows.Forms.RadioButton RbImage;
+    private System.Windows.Forms.Button BtNouveauJeu;
+    private System.Windows.Forms.Button BtResoudre;
+    private System.Windows.Forms.Panel PnlBoutons;
   }
 }
 

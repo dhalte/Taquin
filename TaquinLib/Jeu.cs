@@ -194,6 +194,10 @@ namespace TaquinLib
       Plateau = DupliquePlateau(PlateauInitial);
       InitPieces();
       Solution = new List<int>();
+      ResoudreCalculMouvements();
+    }
+    private void ResoudreCalculMouvements()
+    {
       for (int y = 0; y < Hauteur - 2; y++)
       {
         for (int x = 0; x < Largeur - 2; x++)
@@ -568,13 +572,13 @@ namespace TaquinLib
     }
 
     #region REGION interactive
-    public int PositionPiece(int indice)
+    public int PositionPiece(int indicePiece)
     {
-      if (indice < 0 || NbCases <= indice)
+      if (indicePiece < 0 || NbCases <= indicePiece)
       {
         throw new ArgumentException();
       }
-      return Pieces[indice];
+      return Pieces[indicePiece];
     }
     public bool IsResolu()
     {
@@ -588,5 +592,69 @@ namespace TaquinLib
       return true;
     }
     #endregion REGION interactive
+
+    #region REGION résolution automatique
+    private int[] ResolutionAutomatiquePlateau;
+    private int[] ResolutionAutomatiquePieces;
+    private int ResolutionAutomatiqueIndiceMvtEnCours;
+    public void ResolutionAutomatiqueResoudre()
+    {
+      // Sauvegarder un pointeur sur le prochain mouvement à effectuer, qu'on va calculer
+      ResolutionAutomatiqueIndiceMvtEnCours = Solution.Count-1;
+      ResolutionAutomatiquePlateau = DupliquePlateau(Plateau);
+      ResolutionAutomatiquePieces = DupliquePlateau(Pieces);
+      // A partir de la situation actuelle, calculer les mouvements qu'il reste à effectuer
+      ResoudreCalculMouvements();
+    }
+    public int ResolutionAutomatiquePositionPiece(int indicePiece)
+    {
+      if (indicePiece < 0 || NbCases <= indicePiece)
+      {
+        throw new ArgumentException();
+      }
+      return ResolutionAutomatiquePieces[indicePiece];
+    }
+    public int ResolutionAutomatiqueAvancePosition()
+    {
+      int nextPosVide = ResolutionAutomatiquePieces[CaseVide];
+      if (ResolutionAutomatiqueIndiceMvtEnCours < Solution.Count-1)
+      {
+        ++ResolutionAutomatiqueIndiceMvtEnCours;
+        nextPosVide = Solution[ResolutionAutomatiqueIndiceMvtEnCours];
+        ResolutionAutomatiqueSwitchVide(nextPosVide);
+      }
+      return nextPosVide;
+    }
+
+    private void ResolutionAutomatiqueSwitchVide(int nextPosVide)
+    {
+      int posVideActuelle = ResolutionAutomatiquePieces[CaseVide];
+      if (!ResolutionAutomatiqueVoisins(posVideActuelle, nextPosVide))
+      {
+        throw new ArgumentException();
+      }
+      // la pièce qui va être transposée avec la case vide
+      int indiceA = ResolutionAutomatiquePlateau[nextPosVide];
+      ResolutionAutomatiquePlateau[posVideActuelle] = indiceA;
+      ResolutionAutomatiquePlateau[nextPosVide] = CaseVide;
+      ResolutionAutomatiquePieces[CaseVide] = nextPosVide;
+      ResolutionAutomatiquePieces[indiceA] = posVideActuelle;
+    }
+    private bool ResolutionAutomatiqueVoisins(int indiceVide, int indiceA)
+    {
+      Point coordVide = Coordonnees(ResolutionAutomatiquePieces[CaseVide]), coordA = Coordonnees(indiceA);
+      return Voisins(coordVide, coordA);
+    }
+    public bool ResolutionAutomatiqueIsResolu()
+    {
+      return ResolutionAutomatiqueIndiceMvtEnCours == Solution.Count - 1;
+    }
+    public int ResolutionAutomatiquePosPieceEnMouvement()
+    {
+      return Solution[ResolutionAutomatiqueIndiceMvtEnCours + 1];
+    }
+
+    #endregion REGION résolution automatique
+
   }
 }

@@ -27,19 +27,26 @@ namespace Taquin
     {
       if (TabMain.SelectedTab == TabJeu)
       {
-        if (!bJeuEnCours)
+        InitJeu();
+      }
+    }
+
+    private void InitJeu()
+    {
+      if (!bJeuEnCours)
+      {
+        bJeuEnCours = TryInitJeu();
+        if (bJeuEnCours)
         {
-          bJeuEnCours = TryInitJeu();
-          if (bJeuEnCours)
-          {
-            Jeu jeu = new Jeu(Largeur, Hauteur);
-            PlateauJeu.Init(jeu, Image);
-            PlateauJeu.Show();
-          }
-          else
-          {
-            PlateauJeu.Hide();
-          }
+          Jeu jeu = new Jeu(Largeur, Hauteur);
+          PlateauJeu.Init(jeu, Image);
+          PlateauJeu.Show();
+          PnlBoutons.Enabled = true;
+        }
+        else
+        {
+          PlateauJeu.Hide();
+          PnlBoutons.Enabled = false;
         }
       }
     }
@@ -109,6 +116,30 @@ namespace Taquin
       {
         PlateauJeu.ChangeImage(null);
       }
+    }
+    
+    private void BtNouveauJeu_Click(object sender, EventArgs e)
+    {
+      bJeuEnCours = false;
+      InitJeu();
+      PlateauJeu.Refresh();
+    }
+
+    // Lancement de l'animation de résolution automatique
+    private void BtResoudre_Click(object sender, EventArgs e)
+    {
+      PnlBoutons.Enabled = false;
+      // Asynchrone
+      ResoudreAutomatiquement();
+    }
+    private void ResoudreAutomatiquement()
+    {
+      PlateauJeu.ResoudreAutomatiquement();      
+    }
+
+    private void PlateauJeu_ResolutionAutomatiqueOver(object sender, EventArgs e)
+    {
+      PnlBoutons.Enabled = true;
     }
   }
 }
