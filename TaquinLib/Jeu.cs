@@ -12,7 +12,7 @@ namespace TaquinLib
     public int Largeur { get; private set; }
     public int Hauteur { get; private set; }
     public int NbCases { get; private set; }
-    internal int Indice(int x, int y)
+    public int Indice(int x, int y)
     {
       if (x < 0 || Largeur <= x || y < 0 || Hauteur <= y)
       {
@@ -20,11 +20,11 @@ namespace TaquinLib
       }
       return x + y * Largeur;
     }
-    internal int Indice(Point coord)
+    public int Indice(Point coord)
     {
       return Indice(coord.X, coord.Y);
     }
-    internal Point Coordonnees(int indice)
+    public Point Coordonnees(int indice)
     {
       if (indice < 0 || NbCases <= indice)
       {
@@ -73,6 +73,15 @@ namespace TaquinLib
       }
       // préparation de données
       InitCalculZones();
+      // Pour une utilisation manuelle
+      InitJeu();
+    }
+
+    private void InitJeu()
+    {
+      Plateau = DupliquePlateau(PlateauInitial);
+      InitPieces();
+      Solution = new List<int>();
     }
 
     private void InitCalculZones()
@@ -150,7 +159,7 @@ namespace TaquinLib
         posV = posVnext;
       }
       int nbT = 0;
-      for (int i = 0; i < CaseVide-1; i++)
+      for (int i = 0; i < CaseVide - 1; i++)
       {
         if (plateau[i] != i)
         {
@@ -200,7 +209,6 @@ namespace TaquinLib
       }
       RangeDernierCarre();
     }
-
     private void InitPieces()
     {
       Pieces = new int[NbCases];
@@ -227,7 +235,7 @@ namespace TaquinLib
       }
     }
 
-    private void SwitchVide(int posVideDest)
+    public void SwitchVide(int posVideDest)
     {
       int posVideActuelle = PosVide;
       if (!Voisins(posVideActuelle, posVideDest))
@@ -559,5 +567,26 @@ namespace TaquinLib
 
     }
 
+    #region REGION interactive
+    public int PositionPiece(int indice)
+    {
+      if (indice < 0 || NbCases <= indice)
+      {
+        throw new ArgumentException();
+      }
+      return Pieces[indice];
+    }
+    public bool IsResolu()
+    {
+      for (int i = 0; i < NbCases; i++)
+      {
+        if (Plateau[i] != i)
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+    #endregion REGION interactive
   }
 }
