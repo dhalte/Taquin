@@ -90,6 +90,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CarreMagique\CarreMagique.csproj">
+      <Project>{8e76df80-c17c-46c2-b54a-bac6a61e838c}</Project>
+      <Name>CarreMagique</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TaquinLib\TaquinLib.csproj">
       <Project>{d9ff9700-6696-4774-b0a0-e1d551de6078}</Project>
       <Name>TaquinLib</Name>

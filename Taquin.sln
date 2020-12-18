@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaquinLib", "TaquinLib\Taqu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaquinCalculZone", "TaquinCalculZone\TaquinCalculZone.csproj", "{7F6D3BB8-7789-422B-AFC9-83B32AD3C61A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarreMagique", "CarreMagique\CarreMagique.csproj", "{8E76DF80-C17C-46C2-B54A-BAC6A61E838C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7F6D3BB8-7789-422B-AFC9-83B32AD3C61A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F6D3BB8-7789-422B-AFC9-83B32AD3C61A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F6D3BB8-7789-422B-AFC9-83B32AD3C61A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E76DF80-C17C-46C2-B54A-BAC6A61E838C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E76DF80-C17C-46C2-B54A-BAC6A61E838C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E76DF80-C17C-46C2-B54A-BAC6A61E838C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E76DF80-C17C-46C2-B54A-BAC6A61E838C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
